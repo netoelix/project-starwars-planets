@@ -1,25 +1,28 @@
-import { useEffect, useState } from 'react';
-import getStarWarsPlanets, { Planet } from '../services/requestAPI';
+import { useContext, useState } from 'react';
+import ApiResultContext from '../context/apiResult';
 
 function Table() {
-  const [planets, setPlanets] = useState<Planet[] | null>(null);
+  const planets = useContext(ApiResultContext).data;
+  const [searchText, useText] = useState('');
 
-  useEffect(() => {
-    async function fetchPlanets() {
-      try {
-        const planetsData = await getStarWarsPlanets();
-        setPlanets(planetsData);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    fetchPlanets();
-  }, []);
+  const HandleChange = (event: any) => {
+    useText(event.target.value);
+  };
+
+  const newPlanets = planets.filter((planet) => planet.name
+    .toLowerCase().includes(searchText));
 
   return (
     <div>
       <h1>Star Wars Planets</h1>
-      {planets === null ? (
+      <input
+        type="text"
+        name="value"
+        id="search"
+        data-testid="name-filter"
+        onChange={ HandleChange }
+      />
+      {planets.length < 1 ? (
         <p>Loading...</p>
       ) : (
         <table>
@@ -41,7 +44,7 @@ function Table() {
             </tr>
           </thead>
           <tbody>
-            {planets.map((planet) => (
+            {newPlanets.map((planet) => (
               <tr key={ planet.name }>
                 <td>{planet.name}</td>
                 <td>{planet.rotation_period}</td>
