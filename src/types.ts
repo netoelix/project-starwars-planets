@@ -1,6 +1,7 @@
 export type ApiResult = {
   data: object[];
   error?: string;
+  newList?: object[];
 };
 
 export type Planet = {

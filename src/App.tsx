@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import Table from './components/Table';
 import ApiResultContext from './context/apiResult';
 import getStarWarsPlanets from './services/requestAPI';
 import { Planet } from './types';
+import Filter from './components/Filter';
 
 function App() {
   const [planets, setPlanets] = useState<Planet[] | null>(null);
@@ -23,7 +23,7 @@ function App() {
   return (
     <ApiResultContext.Provider value={ { data: planets || [] } }>
       <div>
-        <Table />
+        <Filter />
       </div>
     </ApiResultContext.Provider>
   );

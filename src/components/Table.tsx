@@ -1,27 +1,13 @@
-import { useContext, useState } from 'react';
-import ApiResultContext from '../context/apiResult';
+import { Planet } from '../types';
 
-function Table() {
-  const planets = useContext(ApiResultContext).data;
-  const [searchText, useText] = useState('');
+type TableProps = {
+  filteredArray: Planet[];
+};
 
-  const HandleChange = (event: any) => {
-    useText(event.target.value);
-  };
-
-  const newPlanets = planets.filter((planet) => planet.name
-    .toLowerCase().includes(searchText));
-
+function Table({ filteredArray }: TableProps) {
+  const planets = filteredArray;
   return (
     <div>
-      <h1>Star Wars Planets</h1>
-      <input
-        type="text"
-        name="value"
-        id="search"
-        data-testid="name-filter"
-        onChange={ HandleChange }
-      />
       {planets.length < 1 ? (
         <p>Loading...</p>
       ) : (
@@ -44,7 +30,7 @@ function Table() {
             </tr>
           </thead>
           <tbody>
-            {newPlanets.map((planet) => (
+            {planets.map((planet) => (
               <tr key={ planet.name }>
                 <td>{planet.name}</td>
                 <td>{planet.rotation_period}</td>
