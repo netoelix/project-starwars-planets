@@ -39,7 +39,6 @@ export function useSecondFilter(
           return true;
       }
     });
-    console.log(result);
     setFilteredArray(result);
   }, [column, operator, value, array]);
 

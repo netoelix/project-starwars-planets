@@ -9,13 +9,19 @@ let itemOperator = 'maior que';
 
 function Filter() {
   const planets = useContext(ApiResultContext).data;
+
   const [searchText, useText] = useState('');
   const [value, setValue] = useState(0);
   const [finalArray, setFinalArray] = useState([]);
   const keyItem = 'name';
 
   const filteredArray = useFilter(searchText, keyItem, planets);
-  const secondFilteredArray = useSecondFilter(itemOption, itemOperator, value, planets);
+  const secondFilteredArray = useSecondFilter(
+    itemOption,
+    itemOperator,
+    value,
+    finalArray,
+  );
 
   useEffect(() => {
     setFinalArray(filteredArray);
