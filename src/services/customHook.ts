@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-function useFilter(input: string, keyItem: string, array: object[]) {
+export function useFilter(input: string, keyItem: string, array: object[]) {
   const [filteredArray, setFilteredArray] = useState<object[]>([]);
 
   useEffect(() => {
@@ -15,4 +15,33 @@ function useFilter(input: string, keyItem: string, array: object[]) {
   return filteredArray;
 }
 
-export default useFilter;
+export function useSecondFilter(
+  column: string,
+  operator: string,
+  value: number,
+  array: object[],
+) {
+  const [filteredArray, setFilteredArray] = useState<object[]>([]);
+
+  useEffect(() => {
+    const result = array.filter((item) => {
+      const itemValue = item[column];
+      const num = Number(value);
+
+      switch (operator) {
+        case 'menor que':
+          return itemValue < num;
+        case 'maior que':
+          return itemValue > num;
+        case 'igual a':
+          return itemValue === value;
+        default:
+          return true;
+      }
+    });
+    console.log(result);
+    setFilteredArray(result);
+  }, [column, operator, value, array]);
+
+  return filteredArray;
+}
