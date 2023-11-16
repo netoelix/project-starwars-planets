@@ -4,18 +4,32 @@ import Table from './Table';
 import { useFilter, useSecondFilter } from '../services/customHook';
 import { FilterType, Planet } from '../types';
 
-let itemOption = 'population';
-let itemOperator = 'maior que';
-
 function Filter() {
   const planets = useContext(ApiResultContext).data;
 
   const [searchText, useText] = useState('');
   const [value, setValue] = useState(0);
-  const [finalArray, setFinalArray] = useState([]);
-  const [filterArray, setFilteredArray] = useState([{}]);
+  const [finalArray, setFinalArray] = useState<object[]>([]);
   const [filters, setFilters] = useState([]);
-  const [columnOptions, setColumnOptions] = useState([
+  const [selectedOperator, setSelectedOperator] = useState<string>('maior que');
+  const [itemOption, setItemOption] = useState('population');
+  const [itemOperator, setItemOperator] = useState('maior que' as string);
+
+  const [columnMaior, setColumnMaior] = useState<string[]>([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
+  const [columnMenor, setColumnMenor] = useState<string[]>([
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ]);
+  const [columnIgual, setColumnIgual] = useState<string[]>([
     'population',
     'orbital_period',
     'diameter',
@@ -32,7 +46,6 @@ function Filter() {
     value,
     finalArray,
   );
-
   useEffect(() => {
     setFinalArray(filteredArray);
   }, [filteredArray]);
@@ -47,26 +60,40 @@ function Filter() {
   };
 
   const HandleColun = (event: any) => {
-    itemOption = event.target.value;
+    setItemOption(event.target.value);
   };
 
   const HandleOperator = (event: any) => {
-    itemOperator = event.target.value;
+    setItemOperator(event.target.value);
+    setSelectedOperator(itemOperator);
   };
 
   function HandleClickButton() {
     setFinalArray(secondFilteredArray);
-    setFilteredArray([{ itemOperator, itemOption, value }]);
     setFilters((prevFilters) => [...prevFilters, { itemOperator, itemOption, value }]);
-    setColumnOptions((prevOptions) => prevOptions
-      .filter((option) => option !== itemOption));
+    if (selectedOperator === 'maior que') {
+      setColumnMaior((prevOptions) => prevOptions
+        .filter((option) => option !== itemOption));
+    } else if (selectedOperator === 'menor que') {
+      setColumnMenor((prevOptions) => prevOptions
+        .filter((option) => option !== itemOption));
+    } else if (selectedOperator === 'igual a') {
+      setColumnIgual((prevOptions) => prevOptions
+        .filter((option) => option !== itemOption));
+    }
   }
 
   function handleDelete(index: number) {
     setFilters((prevFilters) => {
       const filterToDelete = prevFilters[index];
 
-      setColumnOptions((prevOptions) => [...prevOptions, filterToDelete.itemOption]);
+      if (selectedOperator === 'maior que') {
+        setColumnMaior((prevOptions) => [...prevOptions, filterToDelete.itemOption]);
+      } else if (selectedOperator === 'menor que') {
+        setColumnMenor((prevOptions) => [...prevOptions, filterToDelete.itemOption]);
+      } else if (selectedOperator === 'igual a') {
+        setColumnIgual((prevOptions) => [...prevOptions, filterToDelete.itemOption]);
+      }
 
       return prevFilters.filter((filter, i) => i !== index);
     });
@@ -74,15 +101,27 @@ function Filter() {
 
   function handleDeleteAll() {
     setFilters([]);
-
-    setColumnOptions([
+    setColumnMaior([
       'population',
       'orbital_period',
       'diameter',
       'rotation_period',
       'surface_water',
     ]);
-    setFilters([]);
+    setColumnMenor([
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ]);
+    setColumnIgual([
+      'population',
+      'orbital_period',
+      'diameter',
+      'rotation_period',
+      'surface_water',
+    ]);
     setFinalArray(planets);
   }
 
@@ -103,12 +142,18 @@ function Filter() {
           <select
             name="sort"
             id="sort"
-            onChange={ HandleColun }
+            onClick={ HandleColun }
             data-testid="column-filter"
           >
-            {columnOptions.map((option) => (
+            {selectedOperator === 'maior que' ? columnMaior.map((option) => (
               <option key={ option } value={ option }>{option}</option>
-            ))}
+            )) : null}
+            {selectedOperator === 'menor que' ? columnMenor.map((option) => (
+              <option key={ option } value={ option }>{option}</option>
+            )) : null}
+            {selectedOperator === 'igual a' ? columnIgual.map((option) => (
+              <option key={ option } value={ option }>{option}</option>
+            )) : null}
           </select>
         </div>
         <div className="filter__size">
@@ -116,7 +161,7 @@ function Filter() {
           <select
             name="size"
             id="size"
-            onChange={ HandleOperator }
+            onClick={ HandleOperator }
             data-testid="comparison-filter"
           >
             <option value="maior que">maior que</option>
@@ -155,7 +200,7 @@ function Filter() {
                 onClick={ handleDeleteAll }
             >
               Remover todas filtragens
-              </button>}
+            </button>}
         </div>
       </div>
       <Table filteredArray={ finalArray as Planet[] } />
