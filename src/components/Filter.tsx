@@ -194,13 +194,14 @@ function Filter() {
               <button onClick={ () => handleDelete(index) }>Delete</button>
             </div>
           ))}
-          {filters.length === 0 ? <p>Nenhum filtro aplicado</p>
-            : <button
-                data-testid="button-remove-filters"
-                onClick={ handleDeleteAll }
-            >
-              Remover todas filtragens
-            </button>}
+          <button
+            data-testid="button-remove-filters"
+            onClick={ handleDeleteAll }
+            disabled={ filters.length === 0 }
+          >
+            Remover todas filtragens
+
+          </button>
         </div>
       </div>
       <Table filteredArray={ finalArray as Planet[] } />
