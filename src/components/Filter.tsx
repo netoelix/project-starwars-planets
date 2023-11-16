@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import ApiResultContext from '../context/apiResult';
 import Table from './Table';
 import { useFilter, useSecondFilter } from '../services/customHook';
-import { Planet } from '../types';
+import { FilterType, Planet } from '../types';
 
 let itemOption = 'population';
 let itemOperator = 'maior que';
@@ -143,22 +143,19 @@ function Filter() {
           FILTRAR
         </button>
         <div>
-          {filters.map((filter, index) => (
+          {filters.map((filter: FilterType, index) => (
             <div key={ index } data-testid="filter">
               <p>{`${filter.itemOption} ${filter.itemOperator} ${filter.value}`}</p>
               <button onClick={ () => handleDelete(index) }>Delete</button>
             </div>
           ))}
-          {/* {filters.length === 0 ? <p>Nenhum filtro aplicado</p>
-            : <div>
-              <button
+          {filters.length === 0 ? <p>Nenhum filtro aplicado</p>
+            : <button
                 data-testid="button-remove-filters"
                 onClick={ handleDeleteAll }
-              >
-                Remover todas filtragens
-
-              </button>
-              </div>} */}
+            >
+              Remover todas filtragens
+              </button>}
         </div>
       </div>
       <Table filteredArray={ finalArray as Planet[] } />

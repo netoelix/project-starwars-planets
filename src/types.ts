@@ -19,3 +19,9 @@ export type Planet = {
   edited: string;
   url: string;
 };
+
+export type FilterType = {
+  itemOption: string;
+  itemOperator: string;
+  value: number | string;
+};
