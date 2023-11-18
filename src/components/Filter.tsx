@@ -3,9 +3,11 @@ import ApiResultContext from '../context/apiResult';
 import Table from './Table';
 import { useFilter, useSecondFilter } from '../services/customHook';
 import { FilterType, Planet } from '../types';
+import testData from '../services/mock';
 
 function Filter() {
-  const planets = useContext(ApiResultContext).data;
+  // const planets = useContext(ApiResultContext).data;
+  const planets = testData.results;
 
   const [searchText, useText] = useState('');
   const [value, setValue] = useState(0);
@@ -49,6 +51,34 @@ function Filter() {
   useEffect(() => {
     setFinalArray(filteredArray);
   }, [filteredArray]);
+
+  const [filteredPlanets, setFilteredPlanets] = useState<object[]>(planets);
+
+  useEffect(() => {
+    let currentPlanets = [...planets];
+    filters.forEach((filter: FilterType) => {
+      currentPlanets = currentPlanets.filter((planet) => {
+        const planetValue = planet[filter.itemOption];
+        const num = Number(filter.value);
+
+        switch (filter.itemOperator) {
+          case 'menor que':
+            return planetValue < num;
+          case 'maior que':
+            return planetValue > num;
+          case 'igual a':
+            return planetValue === filter.value;
+          default:
+            return true;
+        }
+      });
+    });
+    setFilteredPlanets(currentPlanets);
+  }, [filters, planets]);
+
+  useEffect(() => {
+    setFinalArray(filteredPlanets);
+  }, [filteredPlanets]);
 
   const HandleChange = (event: any) => {
     useText(event.target.value);
@@ -95,7 +125,7 @@ function Filter() {
         setColumnIgual((prevOptions) => [...prevOptions, filterToDelete.itemOption]);
       }
 
-      return prevFilters.filter((filter, i) => i !== index);
+      return prevFilters.filter((_, filterIndex) => filterIndex !== index);
     });
   }
 
