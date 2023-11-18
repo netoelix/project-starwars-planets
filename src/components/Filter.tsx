@@ -6,8 +6,8 @@ import { FilterType, Planet } from '../types';
 import testData from '../services/mock';
 
 function Filter() {
-  // const planets = useContext(ApiResultContext).data;
-  const planets = testData.results;
+  const planets = useContext(ApiResultContext).data;
+  // const planets = testData.results;
 
   const [searchText, useText] = useState('');
   const [value, setValue] = useState(0);
