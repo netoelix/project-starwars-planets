@@ -3,7 +3,6 @@ import ApiResultContext from '../context/apiResult';
 import Table from './Table';
 import { useFilter, useSecondFilter } from '../services/customHook';
 import { FilterType, Planet } from '../types';
-import testData from '../services/mock';
 
 function Filter() {
   const planets = useContext(ApiResultContext).data;
