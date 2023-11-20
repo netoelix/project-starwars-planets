@@ -8,10 +8,16 @@ function CollumSort({ planets }: { planets: Planet[] }) {
 
   const handleSort = () => {
     const sortedPlanets = [...planets].sort((a, b) => {
-      const aValue = a[order.column] === 'unknown'
-        ? (order.sort === 'ASC' ? Infinity : -Infinity) : Number(a[order.column]);
-      const bValue = b[order.column] === 'unknown'
-        ? (order.sort === 'ASC' ? Infinity : -Infinity) : Number(b[order.column]);
+      let aValue = Number(a[order.column]);
+      let bValue = Number(b[order.column]);
+
+      if (a[order.column] === 'unknown') {
+        aValue = order.sort === 'ASC' ? Infinity : -Infinity;
+      }
+
+      if (b[order.column] === 'unknown') {
+        bValue = order.sort === 'ASC' ? Infinity : -Infinity;
+      }
 
       if (order.sort === 'ASC') {
         return aValue - bValue;

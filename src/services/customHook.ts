@@ -10,7 +10,7 @@ export function useFilter(input: string, keyItem: string, array: object[]) {
       return itemValue.includes(lowerCaseInput);
     });
     setFilteredArray(result);
-  }, [input, array]);
+  }, [input, array, keyItem]);
 
   return filteredArray;
 }
