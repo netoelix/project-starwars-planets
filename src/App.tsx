@@ -7,6 +7,7 @@ import Filter from './components/Filter';
 
 function App() {
   const [planets, setPlanets] = useState<Planet[] | null>(null);
+  const [sortedPlanets, setSortedPlanets] = useState<Planet[]>([]);
 
   useEffect(() => {
     async function fetchPlanets() {
@@ -21,7 +22,9 @@ function App() {
   }, []);
 
   return (
-    <ApiResultContext.Provider value={ { data: planets || [] } }>
+    <ApiResultContext.Provider
+      value={ { data: planets || [], sortedPlanets, setSortedPlanets } }
+    >
       <div>
         <Filter />
       </div>

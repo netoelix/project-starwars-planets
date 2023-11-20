@@ -3,11 +3,12 @@ import ApiResultContext from '../context/apiResult';
 import Table from './Table';
 import { useFilter, useSecondFilter } from '../services/customHook';
 import { FilterType, Planet } from '../types';
+import CollumSort from './CollumSort';
 
 function Filter() {
   const planets = useContext(ApiResultContext).data;
   // const planets = testData.results;
-
+  const { sortedPlanets } = useContext(ApiResultContext);
   const [searchText, useText] = useState('');
   const [value, setValue] = useState(0);
   const [finalArray, setFinalArray] = useState<object[]>([]);
@@ -47,6 +48,9 @@ function Filter() {
     value,
     finalArray,
   );
+  useEffect(() => {
+    setFinalArray(sortedPlanets);
+  }, [sortedPlanets]);
   useEffect(() => {
     setFinalArray(filteredArray);
   }, [filteredArray]);
@@ -216,6 +220,7 @@ function Filter() {
         >
           FILTRAR
         </button>
+        <CollumSort planets={ finalArray } />
         <div>
           {filters.map((filter: FilterType, index) => (
             <div key={ index } data-testid="filter">

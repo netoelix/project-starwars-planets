@@ -1,10 +1,17 @@
 import { createContext } from 'react';
-import { ApiResult } from '../types';
+import { ApiResult, Planet } from '../types';
 
-const ApiResultContext = createContext<ApiResult>({
+interface ExtendedApiResult extends ApiResult {
+  sortedPlanets: Planet[];
+  setSortedPlanets: (planets: Planet[]) => void;
+}
+
+const ApiResultContext = createContext<ExtendedApiResult>({
   data: [],
   error: '',
   newList: [],
+  sortedPlanets: [],
+  setSortedPlanets: () => {},
 });
 
 export default ApiResultContext;
