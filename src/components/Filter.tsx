@@ -4,6 +4,9 @@ import Table from './Table';
 import { useFilter, useSecondFilter } from '../services/customHook';
 import { FilterType, Planet } from '../types';
 import CollumSort from './CollumSort';
+import { ButtonFilter, Container, ContainerAllFilters,
+  ContainerFilter, ContainerSearch, ContainerValues,
+  Filters, SearchLogo } from './styles/FIlter/styles';
 
 function Filter() {
   const planets = useContext(ApiResultContext).data;
@@ -159,8 +162,8 @@ function Filter() {
   }
 
   return (
-    <div>
-      <div>
+    <Container>
+      <ContainerSearch>
         <input
           type="text"
           name="value"
@@ -168,9 +171,10 @@ function Filter() {
           data-testid="name-filter"
           onChange={ HandleChange }
         />
-      </div>
-      <div className="filter">
-        <div className="filter__sort">
+        <SearchLogo />
+      </ContainerSearch>
+      <ContainerAllFilters className="filter">
+        <ContainerFilter className="filter__sort">
           <p>Coluna</p>
           <select
             name="sort"
@@ -188,8 +192,8 @@ function Filter() {
               <option key={ option } value={ option }>{option}</option>
             )) : null}
           </select>
-        </div>
-        <div className="filter__size">
+        </ContainerFilter>
+        <ContainerFilter className="filter__size">
           <p>Operador</p>
           <select
             name="size"
@@ -201,9 +205,8 @@ function Filter() {
             <option value="menor que">menor que</option>
             <option value="igual a">igual a</option>
           </select>
-        </div>
-        <div>
-          <p>Valor</p>
+        </ContainerFilter>
+        <ContainerValues>
           <input
             type="number"
             name="value"
@@ -212,35 +215,36 @@ function Filter() {
             onChange={ HandleNumber }
             value={ value }
           />
-        </div>
-        <button
-          type="button"
-          data-testid="button-filter"
-          onClick={ HandleClickButton }
-        >
-          FILTRAR
-        </button>
-        <CollumSort planets={ finalArray } />
-        <div>
-          {filters.map((filter: FilterType, index) => (
-            <div key={ index } data-testid="filter">
-              <p>{`${filter.itemOption} ${filter.itemOperator} ${filter.value}`}</p>
-              <button onClick={ () => handleDelete(index) }>Delete</button>
-            </div>
-          ))}
+        </ContainerValues>
+        <ButtonFilter>
           <button
-            data-testid="button-remove-filters"
-            onClick={ handleDeleteAll }
-            disabled={ filters.length === 0 }
+            type="button"
+            data-testid="button-filter"
+            onClick={ HandleClickButton }
           >
-            Remover todas filtragens
-
+            FILTRAR
           </button>
-        </div>
-      </div>
+        </ButtonFilter>
+        <CollumSort planets={ finalArray } />
+      </ContainerAllFilters>
+      <Filters>
+        {filters.map((filter: FilterType, index) => (
+          <div key={ index } data-testid="filter">
+            <p>{`${filter.itemOption} ${filter.itemOperator} ${filter.value}`}</p>
+            <button onClick={ () => handleDelete(index) }>Delete</button>
+          </div>
+        ))}
+        <button
+          data-testid="button-remove-filters"
+          onClick={ handleDeleteAll }
+          disabled={ filters.length === 0 }
+        >
+          Remover todas filtragens
+
+        </button>
+      </Filters>
       <Table filteredArray={ finalArray as Planet[] } />
-    </div>
+    </Container>
   );
 }
-
 export default Filter;

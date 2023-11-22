@@ -1,6 +1,7 @@
 import { useContext, useState } from 'react';
 import { Planet } from '../types';
 import ApiResultContext from '../context/apiResult';
+import { ButtonFilter, ContainerFilter } from './styles/FIlter/styles';
 
 function CollumSort({ planets }: { planets: Planet[] }) {
   const { setSortedPlanets } = useContext(ApiResultContext);
@@ -29,7 +30,7 @@ function CollumSort({ planets }: { planets: Planet[] }) {
   };
 
   return (
-    <div>
+    <ContainerFilter>
       <select
         name="sort"
         id="sort"
@@ -65,10 +66,12 @@ function CollumSort({ planets }: { planets: Planet[] }) {
         />
       </label>
 
-      <button data-testid="column-sort-button" onClick={ handleSort }>
-        Ordenar
-      </button>
-    </div>
+      <ButtonFilter>
+        <button data-testid="column-sort-button" onClick={ handleSort }>
+          Ordenar
+        </button>
+      </ButtonFilter>
+    </ContainerFilter>
   );
 }
 

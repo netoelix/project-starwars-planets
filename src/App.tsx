@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
-import './App.css';
 import ApiResultContext from './context/apiResult';
 import getStarWarsPlanets from './services/requestAPI';
 import { Planet } from './types';
 import Filter from './components/Filter';
+import { FirstCircle, ST, A, R, W,
+  RS, SecondCircle } from './components/styles/Logo/styles';
+import { Container, Line, Main } from './components/styles/App/styles';
+import { GlobalStyle } from './components/styles/GlobalStyle';
 
 function App() {
   const [planets, setPlanets] = useState<Planet[] | null>(null);
@@ -25,9 +28,23 @@ function App() {
     <ApiResultContext.Provider
       value={ { data: planets || [], sortedPlanets, setSortedPlanets } }
     >
-      <div>
-        <Filter />
-      </div>
+      <GlobalStyle />
+      <Main>
+        <FirstCircle>
+          <SecondCircle>
+            <ST />
+            <A />
+            <R />
+            <W />
+            <A />
+            <RS />
+          </SecondCircle>
+        </FirstCircle>
+        <Line />
+        <Container>
+          <Filter />
+        </Container>
+      </Main>
     </ApiResultContext.Provider>
   );
 }
