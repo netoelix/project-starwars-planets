@@ -28,7 +28,7 @@ function App() {
     <ApiResultContext.Provider
       value={ { data: planets || [], sortedPlanets, setSortedPlanets } }
     >
-      <GlobalStyle />
+      {/* <GlobalStyle />
       <Main>
         <FirstCircle>
           <SecondCircle>
@@ -42,9 +42,9 @@ function App() {
         </FirstCircle>
         <Line />
         <Container>
-          <Filter />
         </Container>
-      </Main>
+      </Main> */}
+      <Filter />
     </ApiResultContext.Provider>
   );
 }

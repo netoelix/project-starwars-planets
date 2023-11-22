@@ -224,7 +224,7 @@ function Filter() {
         </button>
         <CollumSort planets={ finalArray } />
       </div>
-      <Filters>
+      <div>
         {filters.map((filter: FilterType, index) => (
           <div key={ index } data-testid="filter">
             <p>{`${filter.itemOption} ${filter.itemOperator} ${filter.value}`}</p>
@@ -239,7 +239,7 @@ function Filter() {
           Remover todas filtragens
 
         </button>
-      </Filters>
+      </div>
       <Table filteredArray={ finalArray as Planet[] } />
     </div>
   );
