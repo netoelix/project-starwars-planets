@@ -162,8 +162,8 @@ function Filter() {
   }
 
   return (
-    <Container>
-      <ContainerSearch>
+    <div>
+      <div>
         <input
           type="text"
           name="value"
@@ -171,10 +171,9 @@ function Filter() {
           data-testid="name-filter"
           onChange={ HandleChange }
         />
-        <SearchLogo />
-      </ContainerSearch>
-      <ContainerAllFilters className="filter">
-        <ContainerFilter className="filter__sort">
+      </div>
+      <div className="filter">
+        <div className="filter__sort">
           <p>Coluna</p>
           <select
             name="sort"
@@ -192,8 +191,8 @@ function Filter() {
               <option key={ option } value={ option }>{option}</option>
             )) : null}
           </select>
-        </ContainerFilter>
-        <ContainerFilter className="filter__size">
+        </div>
+        <div className="filter__size">
           <p>Operador</p>
           <select
             name="size"
@@ -205,8 +204,8 @@ function Filter() {
             <option value="menor que">menor que</option>
             <option value="igual a">igual a</option>
           </select>
-        </ContainerFilter>
-        <ContainerValues>
+        </div>
+        <div>
           <input
             type="number"
             name="value"
@@ -215,18 +214,16 @@ function Filter() {
             onChange={ HandleNumber }
             value={ value }
           />
-        </ContainerValues>
-        <ButtonFilter>
-          <button
-            type="button"
-            data-testid="button-filter"
-            onClick={ HandleClickButton }
-          >
-            FILTRAR
-          </button>
-        </ButtonFilter>
+        </div>
+        <button
+          type="button"
+          data-testid="button-filter"
+          onClick={ HandleClickButton }
+        >
+          FILTRAR
+        </button>
         <CollumSort planets={ finalArray } />
-      </ContainerAllFilters>
+      </div>
       <Filters>
         {filters.map((filter: FilterType, index) => (
           <div key={ index } data-testid="filter">
@@ -244,7 +241,7 @@ function Filter() {
         </button>
       </Filters>
       <Table filteredArray={ finalArray as Planet[] } />
-    </Container>
+    </div>
   );
 }
 export default Filter;
