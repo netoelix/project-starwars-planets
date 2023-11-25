@@ -9,11 +9,11 @@ type TableProps = {
 function Table({ filteredArray }: TableProps) {
   const planets = filteredArray;
   return (
-    <div>
+    <Container>
       {planets.length < 1 ? (
         <p>Loading...</p>
       ) : (
-        <table>
+        <TableContainer>
           <thead>
             <tr>
               <th>Name</th>
@@ -50,9 +50,9 @@ function Table({ filteredArray }: TableProps) {
               </tr>
             ))}
           </tbody>
-        </table>
+        </TableContainer>
       )}
-    </div>
+    </Container>
   );
 }
 

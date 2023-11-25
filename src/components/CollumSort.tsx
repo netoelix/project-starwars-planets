@@ -30,7 +30,7 @@ function CollumSort({ planets }: { planets: Planet[] }) {
   };
 
   return (
-    <div>
+    <ContainerFilter>
       <select
         name="sort"
         id="sort"
@@ -66,10 +66,12 @@ function CollumSort({ planets }: { planets: Planet[] }) {
         />
       </label>
 
-      <button data-testid="column-sort-button" onClick={ handleSort }>
-        Ordenar
-      </button>
-    </div>
+      <ButtonFilter>
+        <button data-testid="column-sort-button" onClick={ handleSort }>
+          Ordenar
+        </button>
+      </ButtonFilter>
+    </ContainerFilter>
   );
 }
 

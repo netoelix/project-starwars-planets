@@ -160,10 +160,9 @@ function Filter() {
     ]);
     setFinalArray(planets);
   }
-
   return (
-    <div>
-      <div>
+    <Container>
+      <ContainerSearch>
         <input
           type="text"
           name="value"
@@ -171,9 +170,10 @@ function Filter() {
           data-testid="name-filter"
           onChange={ HandleChange }
         />
-      </div>
-      <div className="filter">
-        <div className="filter__sort">
+        <SearchLogo />
+      </ContainerSearch>
+      <ContainerAllFilters className="filter">
+        <ContainerFilter className="filter__sort">
           <p>Coluna</p>
           <select
             name="sort"
@@ -191,8 +191,8 @@ function Filter() {
               <option key={ option } value={ option }>{option}</option>
             )) : null}
           </select>
-        </div>
-        <div className="filter__size">
+        </ContainerFilter>
+        <ContainerFilter className="filter__size">
           <p>Operador</p>
           <select
             name="size"
@@ -204,8 +204,8 @@ function Filter() {
             <option value="menor que">menor que</option>
             <option value="igual a">igual a</option>
           </select>
-        </div>
-        <div>
+        </ContainerFilter>
+        <ContainerValues>
           <input
             type="number"
             name="value"
@@ -214,17 +214,19 @@ function Filter() {
             onChange={ HandleNumber }
             value={ value }
           />
-        </div>
-        <button
-          type="button"
-          data-testid="button-filter"
-          onClick={ HandleClickButton }
-        >
-          FILTRAR
-        </button>
+        </ContainerValues>
+        <ButtonFilter>
+          <button
+            type="button"
+            data-testid="button-filter"
+            onClick={ HandleClickButton }
+          >
+            FILTRAR
+          </button>
+        </ButtonFilter>
         <CollumSort planets={ finalArray } />
-      </div>
-      <div>
+      </ContainerAllFilters>
+      <Filters>
         {filters.map((filter: FilterType, index) => (
           <div key={ index } data-testid="filter">
             <p>{`${filter.itemOption} ${filter.itemOperator} ${filter.value}`}</p>
@@ -237,11 +239,10 @@ function Filter() {
           disabled={ filters.length === 0 }
         >
           Remover todas filtragens
-
         </button>
-      </div>
+      </Filters>
       <Table filteredArray={ finalArray as Planet[] } />
-    </div>
+    </Container>
   );
 }
 export default Filter;
