@@ -21,5 +21,6 @@ border-radius: 20px;
 border: 1px solid #FFF;
 margin: 20px;
 margin-top: 0;
-background-color: #2e30354c;
+background-color: black;
+opacity: 0.8;
 `;
