@@ -30,3 +30,12 @@
 ## Sobre a Aplicação:
 
 O App de receitas é uma plataforma dedicada a oferecer uma experiência culinária envolvente e personalizada. Com um login intuitivo e recursos robustos, os usuários podem explorar uma vasta gama de receitas, personalizando suas buscas e salvando suas preferências. Desenvolvida com React, a aplicação garante uma navegação suave e estilização visualmente agradável. A integração de APIs de bebida e comida proporciona um catálogo diversificado, enquanto a Context API facilita o acesso global aos dados, tornando a Central de Receitas Mobile uma escolha ideal para entusiastas culinários de todos os níveis.
+
+## Projeto feito por:
+- Elix Merlino Neto
+- Bruno Marcadella
+- Edward Silva
+- Caian Maestrelli
+- Alan Moreira
+- Devair Donizetti Gomes Junior
+- Carlos Bueno
